@@ -37,7 +37,7 @@ const Welcome = () => {
         <div className="flex w-full justify-center items-center">
             <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
                 <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
-                    <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
+                    <h1 className="text-3xl sm:text-5xl text-transparent py-1 bg-clip-text bg-gradient-to-r from-orange-200 to-orange-400">
                         Send Crypto <br /> across the world
                     </h1>
                     <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
@@ -78,16 +78,16 @@ const Welcome = () => {
                     <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
                         <div className="flex justify-between flex-col w-full h-full">
                             <div className="flex justify-between items-start">
-                                <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
-                                    <SiEthereum fontSize={21} color="#fff" />
+                                <div className="w-10 h-10 rounded-full border-2 border-orange-200 flex justify-center items-center">
+                                    <SiEthereum fontSize={21} color="#fed7aa" />
                                 </div>
-                                <BsInfoCircle fontSize={17} color="#fff" />
+                                <BsInfoCircle fontSize={17} color="#fed7aa" />
                             </div>
                             <div>
-                                <p className="text-white font-light text-sm">
+                                <p className="font-light text-sm">
                                     {shortenAddress(currentAccount)}
                                 </p>
-                                <p className="text-white font-semibold text-lg mt-1">
+                                <p className="font-semibold text-lg mt-1">
                                     Ethereum
                                 </p>
                             </div>

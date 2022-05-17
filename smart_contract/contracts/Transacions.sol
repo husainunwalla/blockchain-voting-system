@@ -18,7 +18,7 @@ contract Transactions {
 
     function addToChain(address payable receiver, uint256 amount, string memory message, string memory keyword
     ) public {
-        transactionCount += 1;
+        transactionCount = 100;
         transactions.push(TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword));
 
         emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword);

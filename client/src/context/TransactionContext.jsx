@@ -20,6 +20,7 @@ export const TransactionsProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
+    const [allVotes, setAllVotes] = useState(localStorage.getItem("allVotes"));
     const [transactions, setTransactions] = useState([]);
 
     const handleChange = (e, name) => {
@@ -78,12 +79,15 @@ export const TransactionsProvider = ({ children }) => {
                 const transactionsContract = createEthereumContract();
                 const currentTransactionCount = await transactionsContract.getTransactionCount();
 
+                const currentVotes = await transactionsContract.getVotes();
+
                 window.localStorage.setItem("transactionCount", currentTransactionCount);
+                window.localStorage.setItem("allVotes", currentVotes);
             }
         } catch (error) {
             console.log(error);
 
-            throw new Error("No ethereum object");
+            throw new Error("No ethereum object " + error);
         }
     };
 
@@ -157,6 +161,7 @@ export const TransactionsProvider = ({ children }) => {
                 sendTransaction,
                 handleChange,
                 formData,
+                allVotes
             }}
         >
             {children}

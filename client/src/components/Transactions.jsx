@@ -48,20 +48,24 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
 };
 
 const Transactions = () => {
-    const { transactions, currentAccount, transactionCount } = useContext(TransactionContext);
+    const { transactions, currentAccount, transactionCount, allVotes } = useContext(TransactionContext);
 
     return (
         <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
             <div className="flex flex-col md:p-12 py-12 px-4">
                 {currentAccount ? (
                     <h3 className="text-white text-3xl text-center my-2">
-                        Latest Transactions, Total Count {transactionCount}
+                        Latest Votes, Total Count {transactionCount}
                     </h3>
                 ) : (
                     <h3 className="text-white text-3xl text-center my-2">
                         Connect your account to see the latest transactions
                     </h3>
                 )}
+
+                <h3 className="text-white text-3xl text-center my-2">
+                    Votes for A and B are {allVotes}
+                </h3>
 
                 <div className="flex flex-wrap justify-center items-center mt-10">
                     {transactions.reverse().map((transaction, i) => (

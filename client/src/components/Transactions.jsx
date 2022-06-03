@@ -5,7 +5,7 @@ import { TransactionContext } from "../context/TransactionContext";
 import useFetch from "../hooks/useFetch";
 import { shortenAddress } from "../utils/shortenAddress";
 
-const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url }) => {
+const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url, vote }) => {
     const gifUrl = useFetch({ keyword });
 
     return (
@@ -26,6 +26,7 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
                         <p className="text-white text-base">To: {shortenAddress(addressTo)}</p>
                     </a>
                     <p className="text-white text-base">Amount: {amount} ETH</p>
+                    <p className="text-white text-base">Vote: {vote} </p>
                     {message && (
                         <>
                             <br />

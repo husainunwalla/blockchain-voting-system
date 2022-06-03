@@ -24,11 +24,11 @@ const Welcome = () => {
     const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
 
     const handleSubmit = (e) => {
-        const { addressTo, amount, keyword, message } = formData;
+        const { addressTo, amount, keyword, message, vote } = formData;
 
         e.preventDefault();
 
-        if (!addressTo || !amount || !keyword || !message) return;
+        if (!addressTo || !amount || !keyword || !message || !vote) return;
 
         sendTransaction();
     };
@@ -98,6 +98,7 @@ const Welcome = () => {
                         <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange} />
                         <Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange} />
                         <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
+                        <Input placeholder="Enter Vote Recepient" name="vote" type="text" handleChange={handleChange} />
 
                         <div className="h-[1px] w-full bg-gray-400 my-2" />
 

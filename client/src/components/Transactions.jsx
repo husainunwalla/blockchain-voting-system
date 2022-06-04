@@ -5,6 +5,10 @@ import { TransactionContext } from "../context/TransactionContext";
 import useFetch from "../hooks/useFetch";
 import { shortenAddress } from "../utils/shortenAddress";
 
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url, vote }) => {
     const gifUrl = useFetch({ keyword });
 
@@ -49,9 +53,23 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
 
 const Transactions = () => {
     const { transactions, currentAccount, transactionCount, allVotes } = useContext(TransactionContext);
+    var allVotesArr = allVotes.split(',');
+
+    const chartData = {
+        labels: ['A', 'B'],
+        datasets: [
+            {
+                label: 'Votes',
+                backgroundColor: ['hsla(225,39%,30%,1)', 'hsla(339,49%,30%,1)'],
+                borderColor: 'rgb(254 215 170 1)',
+                borderWidth: 2,
+                data: allVotesArr
+            }
+        ]
+    }
 
     return (
-        <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
+        <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-services">
             <div className="flex flex-col md:p-12 py-12 px-4">
                 {currentAccount ? (
                     <h3 className="text-white text-3xl text-center my-2">
@@ -59,21 +77,31 @@ const Transactions = () => {
                     </h3>
                 ) : (
                     <h3 className="text-white text-3xl text-center my-2">
-                        Connect your account to see the latest transactions
+                        Connect your account to see the latest Votes
                     </h3>
                 )}
 
-                <h3 className="text-white text-3xl text-center my-2">
-                    Votes for A and B are {allVotes}
-                </h3>
+                <div className="flex flex-wrap justify-center items-center">
+                    <div className=" m-4 flex flex-1 2xl:min-w-[450px] 2xl:max-w-[500px] sm:min-w-[270px] sm:max-w-[300px] min-w-full flex-col p-3 rounded-md hover:shadow-2xl">
+                        <div className="flex flex-col items-center w-full mt-3">
+                            <Doughnut
+                                data={chartData}
+                                options={{}}
+                            />
+                        </div>
+                    </div>
+                </div>
+
 
                 <div className="flex flex-wrap justify-center items-center mt-10">
                     {transactions.reverse().map((transaction, i) => (
                         <TransactionsCard key={i} {...transaction} />
                     ))}
                 </div>
+
+
             </div>
-        </div>
+        </div >
     );
 };
 

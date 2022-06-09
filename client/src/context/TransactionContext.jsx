@@ -113,7 +113,8 @@ export const TransactionsProvider = ({ children }) => {
                 const transactionsContract = createEthereumContract();
                 const parsedAmount = ethers.utils.parseEther(amount);
 
-                await ethereum.request({
+                //Commented send amount part
+                /*await ethereum.request({
                     method: "eth_sendTransaction",
                     params: [{
                         from: currentAccount,
@@ -121,7 +122,7 @@ export const TransactionsProvider = ({ children }) => {
                         gas: "0x5208",
                         value: parsedAmount._hex,
                     }],
-                });
+                });*/
 
                 const transactionHash = await transactionsContract.addToChain(addressTo, parsedAmount, message, keyword, vote);
 

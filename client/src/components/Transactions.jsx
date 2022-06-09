@@ -9,11 +9,11 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url, vote }) => {
+const TransactionsCard = ({ addressFrom, timestamp, message, keyword, url, vote }) => {
     const gifUrl = useFetch({ keyword });
 
     return (
-        <div className="bg-[#181918] m-4 flex flex-1
+        <div className="amber-glassmorphism m-4 flex flex-1
       2xl:min-w-[450px]
       2xl:max-w-[500px]
       sm:min-w-[270px]
@@ -26,10 +26,6 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
                     <a href={`https://ropsten.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
                         <p className="text-white text-base">From: {shortenAddress(addressFrom)}</p>
                     </a>
-                    <a href={`https://ropsten.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
-                        <p className="text-white text-base">To: {shortenAddress(addressTo)}</p>
-                    </a>
-                    <p className="text-white text-base">Fees: {amount} ETH</p>
                     <p className="text-white text-base">Vote: {vote} </p>
                     {message && (
                         <>

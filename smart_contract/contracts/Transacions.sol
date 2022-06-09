@@ -5,12 +5,10 @@ contract Transactions {
     uint256 transactionCount;
     uint256 voteA;
     uint256 voteB;
-    event Transfer(address from, address receiver, uint256 amount, string message, uint256 timestamp, string keyword, string vote);
+    event Transfer(address from, string message, uint256 timestamp, string keyword, string vote);
 
     struct TransferStruct {
         address sender;
-        address receiver;
-        uint256 amount;
         string message;
         uint256 timestamp;
         string keyword;
@@ -19,7 +17,7 @@ contract Transactions {
 
     TransferStruct[] transactions;
 
-    function addToChain(address payable receiver, uint256 amount, string memory message, string memory keyword, string memory vote
+    function addToChain(string memory message, string memory keyword, string memory vote
     ) public {
         if (keccak256(bytes(vote)) == keccak256(bytes('A'))){
             voteA += 1;
@@ -27,9 +25,9 @@ contract Transactions {
             voteB += 1;
         }
         transactionCount += 1;
-        transactions.push(TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword, vote));
+        transactions.push(TransferStruct(msg.sender, message, block.timestamp, keyword, vote));
 
-        emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword, vote);
+        emit Transfer(msg.sender, message, block.timestamp, keyword, vote);
     }
 
     function getAllTransactions() public view returns (TransferStruct[] memory)

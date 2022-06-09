@@ -16,7 +16,7 @@ const createEthereumContract = () => {
 };
 
 export const TransactionsProvider = ({ children }) => {
-    const [formData, setformData] = useState({ addressTo: "", amount: "", keyword: "", message: "", vote: "" });
+    const [formData, setformData] = useState({ keyword: "", message: "", vote: "" });
     const [currentAccount, setCurrentAccount] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
@@ -35,12 +35,10 @@ export const TransactionsProvider = ({ children }) => {
                 const availableTransactions = await transactionsContract.getAllTransactions();
 
                 const structuredTransactions = availableTransactions.map((transaction) => ({
-                    addressTo: transaction.receiver,
                     addressFrom: transaction.sender,
                     timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
                     message: transaction.message,
                     keyword: transaction.keyword,
-                    amount: parseInt(transaction.amount._hex) / (10 ** 18),
                     vote: transaction.vote
                 }));
 
@@ -109,22 +107,10 @@ export const TransactionsProvider = ({ children }) => {
     const sendTransaction = async () => {
         try {
             if (ethereum) {
-                const { addressTo, amount, keyword, message, vote } = formData;
+                const { keyword, message, vote } = formData;
                 const transactionsContract = createEthereumContract();
-                const parsedAmount = ethers.utils.parseEther(amount);
 
-                //Commented send amount part
-                /*await ethereum.request({
-                    method: "eth_sendTransaction",
-                    params: [{
-                        from: currentAccount,
-                        to: addressTo,
-                        gas: "0x5208",
-                        value: parsedAmount._hex,
-                    }],
-                });*/
-
-                const transactionHash = await transactionsContract.addToChain(addressTo, parsedAmount, message, keyword, vote);
+                const transactionHash = await transactionsContract.addToChain(message, keyword, vote);
 
                 setIsLoading(true);
                 console.log(`Loading - ${transactionHash.hash}`);
@@ -142,7 +128,7 @@ export const TransactionsProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
 
-            throw new Error("No ethereum object");
+            throw new Error("No ethereum object ");
         }
     };
 
